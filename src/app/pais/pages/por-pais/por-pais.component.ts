@@ -12,18 +12,29 @@ export class PorPaisComponent   {
 
   name:string = ""
   error:boolean = false;
+  paises : Country[] = [];
   constructor(private paisService: PaisService) { }
-  buscar(){
+  buscar( name:string){
     this.error = false;
-    this.paisService.buscarPais(this.name)
+    this.name = name;
+    
+    this.paisService.buscarPaises(this.name)
       .subscribe({ 
-        next:(resp:Country[]) => {
-          console.log(resp);
+        next:(resPaises:Country[]) => {
+          console.log(resPaises);
+          this.paises = resPaises;
         },
 
-        error: (err:Error) => { this.error = true;}
+        error: (err:Error) => { 
+          this.error = true;
+          this.paises = [];
+        }
       })
   }
   
+  suge( termino: string){
+    this.error = false;
+    this.name = termino;
+  }
 
 }
