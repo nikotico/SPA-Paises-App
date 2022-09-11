@@ -1,17 +1,29 @@
-<h2>Por pais</h2>
-<hr>
+<div class="animate__animated animate__backInDown animate__faster">
+    <h2>Por pais</h2>
+    <hr>
+    
+    <div class="row">
+        <div class="col">
+            <app-pais-input
+                (onEnter)="buscar($event)"
+                (onDebounce)="suge($event)"
+                placeholder = "Buscar Pais...">
+            </app-pais-input>
+        </div>
+    </div> 
 
-<div class="row">
-    <div class="col">
-        <app-pais-input
-            (onEnter)="buscar($event)"
-            (onDebounce)="suge($event)"
-            placeholder = "Buscar Pais...">
-        </app-pais-input>
-    </div>
+    <ul class="list-group ">
+        <li class="list-group-item list-group-item-action"
+            *ngFor="let paisSuge of paisesSuge" >
+            <a class="nav-link"
+            [routerLink]="['/pais' , paisSuge.alpha2Code]" > {{ paisSuge.name}}</a>
+        </li>
+    </ul>
+
+    <hr>
+
+
 </div>
-
-<hr>
 
 <div *ngIf="error" class="alert alert-danger">
     No se encuentra nada con el nombre: {{name}}
